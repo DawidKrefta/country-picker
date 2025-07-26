@@ -19,7 +19,7 @@ A simple PyQt6 application for selecting and displaying country names, with asyn
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/country-picker.git
+    git clone https://github.com/DawidKrefta/country-picker.git
     cd country-picker
     ```
 
