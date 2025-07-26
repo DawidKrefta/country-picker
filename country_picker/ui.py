@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import (
     QWidget, QLabel, QComboBox, QVBoxLayout, QMainWindow
 )
+from .controller import load_countries_into_ui
 
 
 class MainWindow(QMainWindow):
@@ -8,6 +9,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Country Picker")
         self._init_ui()
+        load_countries_into_ui(self.combo_box, self.label)
 
     def _init_ui(self):
         self.combo_box = QComboBox()
