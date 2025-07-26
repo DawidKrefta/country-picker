@@ -1,19 +1,15 @@
-# country_picker/controller.py
-
-from PyQt6.QtWidgets import QComboBox, QLabel
 from .api import fetch_sorted_country_names
+from .ui import MainWindow
 
 
-def load_countries_into_ui(combo_box: QComboBox, label: QLabel) -> None:
-    """
-    Loads country names into the provided combo box and handles UI errors.
+class AppController:
+    def __init__(self, main_window: MainWindow):
+        self.main_window = main_window
+        self._load_countries()
 
-    Args:
-        combo_box (QComboBox): The UI element to populate.
-        label (QLabel): The label to show error messages, if any.
-    """
-    try:
-        countries = fetch_sorted_country_names()
-        combo_box.addItems(countries)
-    except Exception:
-        label.setText("Failed to load countries.")
+    def _load_countries(self):
+        try:
+            countries = fetch_sorted_country_names()
+            self.main_window.combo_box.addItems(countries)
+        except Exception:
+            self.main_window.label.setText("Failed to load countries.")
