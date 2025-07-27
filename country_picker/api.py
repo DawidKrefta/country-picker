@@ -1,6 +1,6 @@
 import requests
-from typing import List
 import traceback
+from .logger import logger
 
 
 def fetch_sorted_countries() -> list[tuple[str, str]]:
@@ -20,11 +20,12 @@ def fetch_sorted_countries() -> list[tuple[str, str]]:
         response.raise_for_status()
         data = response.json()
     except Exception as e:
-        traceback.print_exc()
-        print(f"Exception message: {e}")
+        tb = traceback.format_exc()
+        logger.error(f"Exception while fetching countries: {e}\n{tb}")
         raise
 
     if not isinstance(data, list):
+        logger.error("Unexpected JSON structure: expected a list")
         raise ValueError("Unexpected JSON structure: expected a list")
 
     result = []
@@ -34,4 +35,5 @@ def fetch_sorted_countries() -> list[tuple[str, str]]:
         if name and alpha2:
             result.append((name, alpha2.lower()))
 
+    logger.info(f"Fetched {len(result)} countries from API")
     return sorted(result, key=lambda x: x[0])

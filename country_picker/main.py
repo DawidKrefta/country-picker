@@ -4,6 +4,7 @@ import argparse
 from PyQt6.QtWidgets import QApplication
 from .ui import MainWindow
 from .controller import AppController
+from .logger import logger
 
 
 def parse_args():
@@ -20,7 +21,7 @@ def main():
         with open(os.path.join(os.path.dirname(__file__), "style.qss")) as f:
             app.setStyleSheet(f.read())
     except Exception as e:
-        print(f"Warning: Could not load stylesheet: {e}")
+        logger.warning(f"Could not load stylesheet: {e}")
 
     window = MainWindow()
     controller = AppController(window, selected_country=args.select)
