@@ -2,6 +2,10 @@ from PyQt6.QtWidgets import (
     QWidget, QLabel, QComboBox, QVBoxLayout, QMainWindow, QSizePolicy
 )
 from PyQt6.QtSvgWidgets import QSvgWidget
+from PyQt6.QtGui import QFont
+from PyQt6.QtCore import Qt
+from . import __version__
+from datetime import datetime
 
 
 class MainWindow(QMainWindow):
@@ -19,11 +23,19 @@ class MainWindow(QMainWindow):
             QSizePolicy.Policy.Expanding
         )
         self.label = QLabel()
+        info_font = QFont()
+        info_font.setPointSize(10)
+
+        info_text = f"Version: {__version__} | Date: {datetime.now().strftime('%Y-%m-%d')}"
+        self.info_label = QLabel(info_text)
+        self.info_label.setFont(info_font)
+        self.info_label.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         layout = QVBoxLayout()
         layout.addWidget(self.combo_box)
         layout.addWidget(self.flag_label)
         layout.addWidget(self.label)
+        layout.addWidget(self.info_label)
 
         central_widget = QWidget()
         central_widget.setLayout(layout)
