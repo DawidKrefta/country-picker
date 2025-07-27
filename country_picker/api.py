@@ -3,12 +3,12 @@ from typing import List
 import traceback
 
 
-def fetch_sorted_country_names() -> List[str]:
+def fetch_sorted_countries() -> list[tuple[str, str]]:
     """
     Fetches country names from the API and returns them sorted alphabetically.
 
     Returns:
-        List[str]: A list of country names.
+        List of (country_name, alpha2_code), sorted alphabetically by name.
 
     Raises:
         requests.RequestException: If the HTTP request fails.
@@ -27,5 +27,11 @@ def fetch_sorted_country_names() -> List[str]:
     if not isinstance(data, list):
         raise ValueError("Unexpected JSON structure: expected a list")
 
-    country_names = [country.get("name") for country in data if "name" in country]
-    return sorted(country_names)
+    result = []
+    for country in data:
+        name = country.get("name")
+        alpha2 = country.get("alpha2Code")
+        if name and alpha2:
+            result.append((name, alpha2.lower()))
+
+    return sorted(result, key=lambda x: x[0])

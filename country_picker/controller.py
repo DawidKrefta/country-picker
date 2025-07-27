@@ -21,9 +21,11 @@ class AppController:
         self.loader.error_occurred.connect(self._on_loading_error)
         self.loader.start()
 
-    def _on_countries_loaded(self, countries: list[str]):
+    def _on_countries_loaded(self, countries: list[tuple[str, str]]):
         self.window.combo_box.clear()
-        self.window.combo_box.addItems(countries)
+        # countries: list of (name, alpha2)
+        country_names = [name for name, _ in countries]
+        self.window.combo_box.addItems(country_names)
         self.window.combo_box.setCurrentIndex(-1)
         self.window.label.setText("")
 

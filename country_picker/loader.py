@@ -1,5 +1,5 @@
 from PyQt6.QtCore import QThread, pyqtSignal
-from .api import fetch_sorted_country_names
+from .api import fetch_sorted_countries
 
 
 class CountryLoader(QThread):
@@ -8,7 +8,7 @@ class CountryLoader(QThread):
 
     def run(self):
         try:
-            countries = fetch_sorted_country_names()
+            countries = fetch_sorted_countries()
             self.countries_loaded.emit(countries)
         except Exception as e:
             self.error_occurred.emit(str(e))
