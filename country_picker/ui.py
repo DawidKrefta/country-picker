@@ -23,12 +23,10 @@ class MainWindow(QMainWindow):
             QSizePolicy.Policy.Expanding
         )
         self.label = QLabel()
-        info_font = QFont()
-        info_font.setPointSize(10)
 
         info_text = f"Version: {__version__} | Date: {datetime.now().strftime('%Y-%m-%d')}"
         self.info_label = QLabel(info_text)
-        self.info_label.setFont(info_font)
+        self.info_label.setObjectName("info_label")
         self.info_label.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         layout = QVBoxLayout()
